@@ -1,0 +1,24 @@
+.enterBox {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-self: center;
+    width: 100%;
+    height: 5em;
+}
+
+.enterBox input {
+    font-size: 18px;
+    border-radius: 0.5em;
+    margin: 1em;
+    width: 100%;
+}
+
+.enterBox button {
+    background-color: green;
+    font-size: 18px;
+    border-radius: 0.5em;
+    margin: 1em;
+    width: 20%;
+    color: white;
+}
