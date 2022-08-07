@@ -1,5 +1,6 @@
 import React from 'react';
 import classes from "./InputBar.module.css";
+import axios from "axios";
 
 const InputBar = (props) => {
   const onTextChange = (event) => {
