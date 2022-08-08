@@ -22,6 +22,15 @@ app.use(express.json())
 app.post('/api/items', (req, res, next) => {
   let item = {...req.body};
   let length = Object.keys(item).length;
+  // console.log(req.body.itemId);
+  if (req.body.itemId) {
+    ITEMS_DATA = ITEMS_DATA.map(item => {
+      if (item.id === req.body.itemId) {
+        return {...item, isChecked: !item.isChecked}
+      }
+      return item;
+    })
+  }
   if (length > 1) {
     ITEMS_DATA.push(item);
     res.status(201).json(item);
