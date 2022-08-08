@@ -21,18 +21,20 @@ const InputBarReducer = (state = initialState, action) => {
         initialText: action.text,
       }
     case ON_ADD_TEXT:
-      let randNum = Math.ceil(Math.random() * 10000);
-      axios.post('http://localhost:3002/api/items', {
-        text: state.initialText, isChecked: false, id: randNum
-      })
-        .then(response => {
-          return response.data;
+      if (state.initialText !== "") {
+        let randNum = Math.ceil(Math.random() * 10000);
+        axios.post('http://localhost:3002/api/items', {
+          text: state.initialText, isChecked: false, id: randNum
         })
-      return {
-        ...state,
-        itemsData: [...state.itemsData,
-          {text: state.initialText, isChecked: false, id: randNum}],
-        initialText: "",
+          .then(response => {
+            return response.data;
+          })
+        return {
+          ...state,
+          itemsData: [...state.itemsData,
+            {text: state.initialText, isChecked: false, id: randNum}],
+          initialText: "",
+        }
       }
     case IS_CHECKED:
       return {

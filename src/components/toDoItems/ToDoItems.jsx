@@ -5,37 +5,9 @@ import axios from "axios";
 
 const ToDoItems = (props) => {
 
-  // async function request(url, method = 'GET', data = null) {
-  //   try {
-  //     const headers = {}
-  //     let body
-  //
-  //     if (data) {
-  //       headers['Content-Type'] = 'application/json'
-  //       body = JSON.stringify(data);
-  //     }
-  //
-  //     const response = await fetch(url, {
-  //       method,
-  //       headers,
-  //       body,
-  //     })
-  //     return await response.json()
-  //   } catch (e) {
-  //     console.warn('My Error', e.message);
-  //   }
-  // }
-
-  if (props.toDoItem.length === 0) {
-    axios.get('http://localhost:3002/api/items')
-      .then(response => {
-        props.addItems(response.data)
-      })
-  }
-
   const Text = (props) => {
     return (
-      <div className={classes.toDoItem}>
+      <div className={classes.toDoItem} draggable={true}>
         <div
           className={props.isChecked ? classes.isChecked : classes.textItem}>
           {props.text}

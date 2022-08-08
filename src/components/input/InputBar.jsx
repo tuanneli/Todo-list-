@@ -13,7 +13,7 @@ const InputBar = (props) => {
   }
 
   return (
-    <div>
+    <div className={classes.topBar}>
       <div onChange={onTextChange} className={classes.enterBox}>
         <input value={props.initialText}/>
         <button onClick={addText}>Add</button>

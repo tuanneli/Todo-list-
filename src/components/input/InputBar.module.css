@@ -10,11 +10,22 @@
 .enterBox input {
     font-size: 18px;
     border-radius: 0.5em;
-    margin: 1em;
+    margin: 1em 0em 1em 0.5em;
     width: 100%;
 }
 
+.topBar:after {
+    margin-bottom: 0.3em;
+    content: "";
+    display: inline-block;
+    margin-left: 5%;
+    width: 90%;
+    height: 2px;
+    background: black;
+}
+
 .enterBox button {
+    user-select: none;
     background-color: green;
     font-size: 18px;
     border-radius: 0.5em;
@@ -22,3 +33,4 @@
     width: 20%;
     color: white;
 }
+

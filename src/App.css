@@ -1,6 +1,10 @@
+body {
+    margin: 0px;
+}
+
 .App {
     display: grid;
-    width: 100vw;
+    max-width: 100vw;
     height: 100vh;
     background-color: #d0be90;
     justify-content: center;
@@ -9,26 +13,53 @@
 
 .main-box {
     width: 30rem;
-    height: 40rem;
+    max-width: 30rem;
+    height: 41rem;
     background-color: #ded7bb;
     border-radius: 1em;
     overflow: hidden;
     overflow-y: scroll;
+    padding-bottom: 1em;
 }
 
 .main-box::-webkit-scrollbar {
-    width: 2em;
+    width: 1.3em;
 }
 
 .main-box::-webkit-scrollbar-track {
-    background-color: red;
+    background-color: hsl(46, 30%, 40%);
+    /*border-radius: 100vw;*/
+    /*margin-block: .5em;*/
+    margin-inline: 1em;
 }
 
 .main-box::-webkit-scrollbar-thumb {
-    background-color: blue;
-    border-radius: 100vh;
+    background-color: hsl(51, 16%, 53%);
+    border: .15em solid hsl(46, 30%, 40%);
+    border-radius: 100vw;
 }
 
 .main-box::-webkit-scrollbar-thumb:hover {
-    background-color: green;
+    background-color: hsl(39, 19%, 58%);
+}
+
+@media (max-width: 500px) {
+    .App {
+        justify-content: normal;
+        align-content: normal;
+    }
+
+    .main-box {
+        width: 100%;
+        max-width: 30rem;
+        min-height: 100%;
+        background-color: #ded7bb;
+        border-radius: 0em;
+        overflow: hidden;
+        overflow-y: scroll;
+    }
+
+    .main-box::-webkit-scrollbar {
+        width: 2em;
+    }
 }

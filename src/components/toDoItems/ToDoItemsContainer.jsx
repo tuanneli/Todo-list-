@@ -6,6 +6,24 @@ import {
   onAddTextAC,
   onIsCheckedAC
 } from "../../redux/inputBarReducer";
+import axios from "axios";
+
+class ToDoItemsContainer extends React.Component {
+  componentDidMount() {
+    axios.get('http://localhost:3002/api/items')
+      .then(response => {
+        this.props.addItems(response.data)
+      })
+  }
+
+  render() {
+    return (
+      <>
+        <ToDoItems {...this.props}/>
+      </>
+    )
+  }
+}
 
 const mapStateToProps = (state) => {
   return {
@@ -28,4 +46,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ToDoItems);
+export default connect(mapStateToProps, mapDispatchToProps)(ToDoItemsContainer);
