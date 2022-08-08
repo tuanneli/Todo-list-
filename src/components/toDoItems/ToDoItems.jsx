@@ -1,13 +1,12 @@
-import React from 'react';
+import React, {useEffect, useRef} from 'react';
 import classes from "./ToDoItems.module.css";
-import axios from "axios";
-// Access-Control-Allow-Origin: http://foo.example
 
 const ToDoItems = (props) => {
 
   const Text = (props) => {
     return (
-      <div className={classes.toDoItem} draggable={true}>
+      <div
+        className={classes.toDoItem}>
         <div
           className={props.isChecked ? classes.isChecked : classes.textItem}>
           {props.text}
@@ -23,15 +22,17 @@ const ToDoItems = (props) => {
   }
 
   let itemsText = props.toDoItem.map((item) => {
-    return <Text text={item.text} isChecked={item.isChecked} userId={item.id}
-                 onIsChecked={props.onIsChecked} deleteItem={props.deleteItem}/>
+    return <Text text={item.text}
+                 isChecked={item.isChecked}
+                 userId={item.id}
+                 onIsChecked={props.onIsChecked}
+                 deleteItem={props.deleteItem}/>
   })
 
   return (
     <div className={classes.toDoItems}>
       {props.toDoItem.length ? itemsText :
-        <h1 style={{textAlign: "center"}}>No items yet</h1>}
-      {/*{itemsText}*/}
+        <h1 className={classes.noItemsYet}>No items yet</h1>}
     </div>
   );
 };

@@ -3,7 +3,6 @@ import {connect} from "react-redux";
 import ToDoItems from "./ToDoItems";
 import {
   addItemsAC, deleteItemAC,
-  onAddTextAC,
   onIsCheckedAC
 } from "../../redux/inputBarReducer";
 import axios from "axios";

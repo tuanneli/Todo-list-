@@ -1,4 +1,4 @@
-import React from 'react';
+// import React from 'react';
 import axios from "axios";
 
 const ON_TEXT_CHANGE = 'ON_TEXT_CHANGE';
@@ -10,8 +10,7 @@ const DELETE_ITEM = 'DELETE_ITEM';
 const initialState = {
   itemsData: [],
   initialText: "",
-
-};
+}
 
 const InputBarReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -36,7 +35,14 @@ const InputBarReducer = (state = initialState, action) => {
           initialText: "",
         }
       }
+      return state;
     case IS_CHECKED:
+      axios.post('http://localhost:3002/api/items', {
+        itemId: action.itemId
+      })
+        .then(response => {
+          return response.data;
+        })
       return {
         ...state,
         itemsData: state.itemsData.map((item) => {

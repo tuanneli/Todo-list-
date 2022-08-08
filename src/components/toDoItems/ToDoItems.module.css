@@ -1,11 +1,4 @@
 .toDoItems {
-    /*padding-top: 1em;*/
-    /*padding-bottom: 1em;*/
-    /*border-radius: 1em;*/
-    /*margin-top: 2rem;*/
-    /*height: 3em;*/
-    /*display: grid;*/
-    /*justify-content: center;*/
 }
 
 .toDoItem {
@@ -69,4 +62,9 @@
     margin: 0;
     width: 45px;
     height: 45px;
+}
+
+.noItemsYet {
+    text-align: center;
+    /*visibility: hidden;*/
 }
