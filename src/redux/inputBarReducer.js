@@ -6,6 +6,7 @@ const ON_ADD_TEXT = 'ON_ADD_TEXT';
 const IS_CHECKED = 'IS_CHECKED';
 const ADD_ITEMS = 'ADD_ITEMS';
 const DELETE_ITEM = 'DELETE_ITEM';
+const SET_BOARD = 'SET_BOARD';
 
 const initialState = {
   itemsData: [],
@@ -51,6 +52,17 @@ const InputBarReducer = (state = initialState, action) => {
           }
           return item;
         })
+      }
+    case SET_BOARD:
+      axios.post('http://localhost:3002/api/items', {
+        board: action.board
+      })
+        .then(response => {
+          return response.data;
+        })
+      return {
+        ...state,
+        itemsData: action.board,
       }
     case ADD_ITEMS:
       return {
@@ -103,6 +115,13 @@ export const addItemsAC = (itemsData) => {
   return {
     type: ADD_ITEMS,
     itemsData
+  }
+};
+
+export const setBoardAC = (board) => {
+  return {
+    type: SET_BOARD,
+    board
   }
 };
 

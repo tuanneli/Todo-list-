@@ -1,5 +1,3 @@
-.toDoItems {
-}
 
 .toDoItem {
     margin-top: 1em;
@@ -9,6 +7,7 @@
 }
 
 .textItem {
+    cursor: grab;
     padding: 12px 5px 12px 5px;
     font-size: 18px;
     justify-self: center;
@@ -37,6 +36,7 @@
 }
 
 .deleteButton button {
+    cursor: pointer;
     font-size: 30px;
     color: white;
     background-color: red;
@@ -48,12 +48,21 @@
 }
 
 .checkButton {
-    user-select: none;
     justify-self: center;
     align-self: center;
 }
 
+button {
+    user-drag: none;
+    -webkit-user-drag: none;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+}
+
 .checkButton button {
+    cursor: pointer;
     font-size: 30px;
     color: white;
     background-color: green;
@@ -66,5 +75,4 @@
 
 .noItemsYet {
     text-align: center;
-    /*visibility: hidden;*/
 }

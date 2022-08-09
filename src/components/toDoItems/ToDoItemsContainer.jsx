@@ -3,7 +3,7 @@ import {connect} from "react-redux";
 import ToDoItems from "./ToDoItems";
 import {
   addItemsAC, deleteItemAC,
-  onIsCheckedAC
+  onIsCheckedAC, setBoardAC
 } from "../../redux/inputBarReducer";
 import axios from "axios";
 
@@ -42,6 +42,9 @@ const mapDispatchToProps = (dispatch) => {
     deleteItem: (itemId) => {
       dispatch(deleteItemAC(itemId))
     },
+    setBoard: (board) => {
+      dispatch(setBoardAC(board))
+    }
   }
 }
 

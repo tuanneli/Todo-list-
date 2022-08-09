@@ -25,6 +25,7 @@
 }
 
 .enterBox button {
+    cursor: pointer;
     user-select: none;
     background-color: green;
     font-size: 18px;
