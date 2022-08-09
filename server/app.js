@@ -22,7 +22,7 @@ app.use(express.json())
 app.post('/api/items', (req, res, next) => {
   let item = {...req.body};
   let length = Object.keys(item).length;
-  // console.log(req.body.itemId);
+  // console.log(req.body.board);
   if (req.body.itemId) {
     ITEMS_DATA = ITEMS_DATA.map(item => {
       if (item.id === req.body.itemId) {
@@ -30,6 +30,9 @@ app.post('/api/items', (req, res, next) => {
       }
       return item;
     })
+  }
+  if (req.body.board) {
+    ITEMS_DATA = req.body.board;
   }
   if (length > 1) {
     ITEMS_DATA.push(item);
