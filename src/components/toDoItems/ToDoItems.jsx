@@ -37,7 +37,10 @@ const ToDoItems = (props) => {
     props.toDoItem.splice(currentIndex, 1);
     const dropIndex = props.toDoItem.indexOf(item);
     props.toDoItem.splice(dropIndex + 1, 0, currentItem);
-    props.setBoard(props.toDoItem);
+    // props.setBoard(props.toDoItem);
+    props.setBoard(props.toDoItem.map((item) => {
+      return item;
+    }))
   }
 
   const Text = (props) => {
