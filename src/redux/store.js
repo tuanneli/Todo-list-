@@ -1,12 +1,17 @@
 import React from 'react';
-import {combineReducers, legacy_createStore} from "redux";
+import {applyMiddleware, combineReducers, legacy_createStore} from "redux";
 import inputBarReducer from "./inputBarReducer";
+import thunkMiddleware from "redux-thunk";
 
 const reducer = combineReducers({
   inputBar: inputBarReducer,
 })
 
-const store = legacy_createStore(reducer);
+let a = 5;
+
+let b = a + a;
+
+const store = legacy_createStore(reducer, applyMiddleware(thunkMiddleware));
 
 window.store = store;
 

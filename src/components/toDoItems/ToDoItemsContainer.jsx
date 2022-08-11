@@ -2,17 +2,17 @@ import React from 'react';
 import {connect} from "react-redux";
 import ToDoItems from "./ToDoItems";
 import {
-  addItemsAC, deleteItemAC,
+  addDeleteItemsThunkCreator,
+  addIsAddItemsThunkCreator,
+  addIsCheckedThunkCreator,
+  addItemsAC, addItemThunkCreator, addTextThunkCreator, deleteItemAC,
   onIsCheckedAC, setBoardAC
 } from "../../redux/inputBarReducer";
-import axios from "axios";
+import {itemsAPI} from "../../api/api";
 
 class ToDoItemsContainer extends React.Component {
   componentDidMount() {
-    axios.get('http://localhost:3002/api/items')
-      .then(response => {
-        this.props.addItems(response.data)
-      })
+    this.props.addItemThunkCreator();
   }
 
   render() {
@@ -39,12 +39,13 @@ const mapDispatchToProps = (dispatch) => {
     addItems: (itemsData) => {
       dispatch(addItemsAC(itemsData))
     },
-    deleteItem: (itemId) => {
-      dispatch(deleteItemAC(itemId))
-    },
-    setBoard: (board) => {
-      dispatch(setBoardAC(board))
-    }
+    addItemThunkCreator: () => dispatch(addItemThunkCreator()),
+    addIsCheckedThunkCreator: (itemId) => dispatch(
+      addIsCheckedThunkCreator(itemId)),
+    addIsAddItemsThunkCreator: (board) => dispatch(
+      addIsAddItemsThunkCreator(board)),
+    addDeleteItemsThunkCreator: (itemId) => dispatch(
+      addDeleteItemsThunkCreator(itemId)),
   }
 }
 

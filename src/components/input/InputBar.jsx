@@ -9,7 +9,7 @@ const InputBar = (props) => {
   }
 
   const addText = () => {
-    props.onAddText();
+    props.addTextThunkCreator(props.initialText);
   }
 
   return (

@@ -1,7 +1,11 @@
 import React from 'react';
 import {connect} from "react-redux";
 import InputBar from "./InputBar";
-import {onAddTextAC, onTextChangeAC} from "../../redux/inputBarReducer";
+import {
+  addTextThunkCreator,
+  onAddTextAC,
+  onTextChangeAC
+} from "../../redux/inputBarReducer";
 
 const mapStateToProps = (state) => {
   return {
@@ -16,7 +20,8 @@ const mapDispatchToProps = (dispatch) => {
     },
     onAddText: () => {
       dispatch(onAddTextAC())
-    }
+    },
+    addTextThunkCreator: (Text) => dispatch(addTextThunkCreator(Text)),
   }
 }
 

@@ -1,5 +1,6 @@
 // import React from 'react';
 import axios from "axios";
+import {itemsAPI} from "../api/api";
 
 const ON_TEXT_CHANGE = 'ON_TEXT_CHANGE';
 const ON_ADD_TEXT = 'ON_ADD_TEXT';
@@ -21,29 +22,13 @@ const InputBarReducer = (state = initialState, action) => {
         initialText: action.text,
       }
     case ON_ADD_TEXT:
-      if (state.initialText !== "") {
-        let randNum = Math.ceil(Math.random() * 10000);
-        axios.post('http://localhost:3002/api/items', {
-          text: state.initialText, isChecked: false, id: randNum
-        })
-          .then(response => {
-            return response.data;
-          })
-        return {
-          ...state,
-          itemsData: [...state.itemsData,
-            {text: state.initialText, isChecked: false, id: randNum}],
-          initialText: "",
-        }
+      return {
+        ...state,
+        itemsData: [...state.itemsData,
+          {text: action.Text, isChecked: false, id: action.itemId}],
+        initialText: "",
       }
-      return state;
     case IS_CHECKED:
-      axios.post('http://localhost:3002/api/items', {
-        itemId: action.itemId
-      })
-        .then(response => {
-          return response.data;
-        })
       return {
         ...state,
         itemsData: state.itemsData.map((item) => {
@@ -54,12 +39,6 @@ const InputBarReducer = (state = initialState, action) => {
         })
       }
     case SET_BOARD:
-      axios.post('http://localhost:3002/api/items', {
-        board: action.board
-      })
-        .then(response => {
-          return response.data;
-        })
       return {
         ...state,
         itemsData: action.board,
@@ -70,12 +49,6 @@ const InputBarReducer = (state = initialState, action) => {
         itemsData: action.itemsData,
       }
     case DELETE_ITEM:
-      axios.post(`http://localhost:3002/api/items`, {
-        params: action.itemId
-      })
-        .then(response => {
-          return response.data;
-        })
       return {
         ...state,
         itemsData: state.itemsData.filter(item => item.id !== action.itemId),
@@ -91,9 +64,11 @@ export const onTextChangeAC = (text) => {
   }
 };
 
-export const onAddTextAC = () => {
+export const onAddTextAC = (Text, itemId) => {
   return {
     type: ON_ADD_TEXT,
+    Text,
+    itemId
   }
 };
 
@@ -124,5 +99,56 @@ export const setBoardAC = (board) => {
     board
   }
 };
+
+export const addItemThunkCreator = () => {
+  return (dispatch) => {
+    itemsAPI.getItems().then(response => {
+      dispatch(addItemsAC(response.data));
+    });
+  }
+}
+
+export const addTextThunkCreator = (Text) => {
+  return (dispatch) => {
+    if (Text !== "") {
+      let randNum = Math.ceil(Math.random() * 10000);
+      itemsAPI.postText(Text, randNum)
+        .then(response => {
+          return response.data;
+        })
+      dispatch(onAddTextAC(Text, randNum))
+    }
+  }
+}
+
+export const addIsCheckedThunkCreator = (itemId) => {
+  return (dispatch) => {
+    itemsAPI.postIsChecked(itemId)
+      .then(response => {
+        return response.data;
+      })
+    dispatch(onIsCheckedAC(itemId))
+  }
+}
+
+export const addIsAddItemsThunkCreator = (board) => {
+  return (dispatch) => {
+    itemsAPI.setBoard(board)
+      .then(response => {
+        return response.data;
+      })
+    dispatch(setBoardAC(board))
+  }
+}
+
+export const addDeleteItemsThunkCreator = (itemId) => {
+  return (dispatch) => {
+    itemsAPI.deleteItem(itemId)
+      .then(response => {
+        return response.data;
+      })
+    dispatch(deleteItemAC(itemId))
+  }
+}
 
 export default InputBarReducer;

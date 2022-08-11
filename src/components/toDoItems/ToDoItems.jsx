@@ -1,16 +1,19 @@
 import React, {useEffect, useRef, useState} from 'react';
 import classes from "./ToDoItems.module.css";
-import axios from "axios";
+import {
+  addDeleteItemsThunkCreator,
+  addIsAddItemsThunkCreator
+} from "../../redux/inputBarReducer";
 
 const ToDoItems = (props) => {
 
   const [currentItem, setCurrentItem] = useState(null)
 
   useEffect(() => {
-    props.setBoard(props.toDoItem)
+    props.addIsAddItemsThunkCreator(props.toDoItem)
   }, [props.toDoItem])
 
-  function dragOverHandler(e, item) {
+  function dragOverHandler(e) {
     e.preventDefault()
     if (e.target.className === classes.textItem || e.target.className ===
       classes.isChecked) {
@@ -37,8 +40,7 @@ const ToDoItems = (props) => {
     props.toDoItem.splice(currentIndex, 1);
     const dropIndex = props.toDoItem.indexOf(item);
     props.toDoItem.splice(dropIndex + 1, 0, currentItem);
-    // props.setBoard(props.toDoItem);
-    props.setBoard(props.toDoItem.map((item) => {
+    props.addIsAddItemsThunkCreator(props.toDoItem.map((item) => {
       return item;
     }))
   }
@@ -47,7 +49,7 @@ const ToDoItems = (props) => {
     return (
       <div
         className={classes.toDoItem}
-        onDragOver={(e) => dragOverHandler(e, props.item)}
+        onDragOver={(e) => dragOverHandler(e)}
         onDragLeave={e => dragLeaveHandler(e)}
         onDragStart={(e) => dragStartHandler(e, props.item)}
         onDragEnd={(e) => dragEndHandler(e)}
@@ -59,11 +61,14 @@ const ToDoItems = (props) => {
           {props.text}
         </div>
         <div className={classes.checkButton}>
-          <button onClick={() => {props.onIsChecked(props.userId)}}>✓
+          <button
+            onClick={() => {props.addIsCheckedThunkCreator(props.userId)}}>✓
           </button>
         </div>
         <div className={classes.deleteButton}>
-          <button onClick={() => {props.deleteItem(props.userId)}}>✗</button>
+          <button
+            onClick={() => {props.addDeleteItemsThunkCreator(props.userId)}}>✗
+          </button>
         </div>
       </div>
     )
@@ -74,7 +79,8 @@ const ToDoItems = (props) => {
                  isChecked={item.isChecked}
                  userId={item.id}
                  onIsChecked={props.onIsChecked}
-                 deleteItem={props.deleteItem}
+                 addDeleteItemsThunkCreator={props.addDeleteItemsThunkCreator}
+                 addIsCheckedThunkCreator={props.addIsCheckedThunkCreator}
                  item={item}
     />
   })
