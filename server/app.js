@@ -22,7 +22,7 @@ app.use(express.json())
 app.post('/api/items', (req, res, next) => {
   let item = {...req.body};
   let length = Object.keys(item).length;
-  if (req.body.itemId) {
+  if (length === 1 && req.body.itemId) {
     ITEMS_DATA = ITEMS_DATA.map(item => {
       if (item.id === req.body.itemId) {
         return {...item, isChecked: !item.isChecked}
@@ -30,18 +30,28 @@ app.post('/api/items', (req, res, next) => {
       return item;
     })
   }
-  if (req.body.board) {
+  if (length === 1 && req.body.board) {
     ITEMS_DATA = req.body.board;
   }
-  if (length > 1) {
+  if (length === 3) {
     ITEMS_DATA.push(item);
     res.status(201).json(item);
   }
-  if (length === 1) {
+  if (length === 1 && req.body.params) {
     let itemId = req.body.params
     ITEMS_DATA = ITEMS_DATA.filter(i => i.id !== itemId);
     res.status(201).json(itemId);
   }
+  if (length === 2) {
+    ITEMS_DATA = ITEMS_DATA.map(item => {
+      if (item.id === req.body.itemId) {
+        return {...item, text: req.body.text}
+      }
+      return item;
+    })
+  }
+  console.log(req.body)
+  console.log(ITEMS_DATA)
 })
 
 app.use(express.static(path.resolve(__dirname)));
