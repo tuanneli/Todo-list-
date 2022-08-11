@@ -4,6 +4,7 @@ import {
   addDeleteItemsThunkCreator,
   addIsAddItemsThunkCreator
 } from "../../redux/inputBarReducer";
+import Note from "./Note";
 
 const ToDoItems = (props) => {
 
@@ -55,11 +56,12 @@ const ToDoItems = (props) => {
         onDragEnd={(e) => dragEndHandler(e)}
         onDrop={(e) => dropHandler(e, props.item)}
       >
-        <div
-          draggable={true}
-          className={props.isChecked ? classes.isChecked : classes.textItem}>
-          {props.text}
-        </div>
+        <Note {...props}/>
+        {/*<div*/}
+        {/*  draggable={true}*/}
+        {/*  className={props.isChecked ? classes.isChecked : classes.textItem}>*/}
+        {/*  {props.text}*/}
+        {/*</div>*/}
         <div className={classes.checkButton}>
           <button
             onClick={() => {props.addIsCheckedThunkCreator(props.userId)}}>✓
@@ -75,7 +77,8 @@ const ToDoItems = (props) => {
   }
 
   let itemsText = props.toDoItem.map((item) => {
-    return <Text text={item.text}
+    return <Text {...props}
+                 text={item.text}
                  isChecked={item.isChecked}
                  userId={item.id}
                  onIsChecked={props.onIsChecked}

@@ -1,8 +1,7 @@
-// import React from 'react';
-import axios from "axios";
 import {itemsAPI} from "../api/api";
 
 const ON_TEXT_CHANGE = 'ON_TEXT_CHANGE';
+const ON_NOTE_CHANGE = 'ON_NOTE_CHANGE';
 const ON_ADD_TEXT = 'ON_ADD_TEXT';
 const IS_CHECKED = 'IS_CHECKED';
 const ADD_ITEMS = 'ADD_ITEMS';
@@ -20,6 +19,16 @@ const InputBarReducer = (state = initialState, action) => {
       return {
         ...state,
         initialText: action.text,
+      }
+    case ON_NOTE_CHANGE:
+      return {
+        ...state,
+        itemsData: state.itemsData.map((item) => {
+          if (item.id === action.itemId) {
+            return {...item, text: action.text}
+          }
+          return item;
+        })
       }
     case ON_ADD_TEXT:
       return {
@@ -60,7 +69,16 @@ const InputBarReducer = (state = initialState, action) => {
 
 export const onTextChangeAC = (text) => {
   return {
-    type: ON_TEXT_CHANGE, text
+    type: ON_TEXT_CHANGE,
+    text,
+  }
+};
+
+export const onNoteChangeAC = (text, itemId) => {
+  return {
+    type: ON_NOTE_CHANGE,
+    itemId,
+    text
   }
 };
 
@@ -148,6 +166,16 @@ export const addDeleteItemsThunkCreator = (itemId) => {
         return response.data;
       })
     dispatch(deleteItemAC(itemId))
+  }
+}
+
+export const changeNoteThunkCreator = (text, itemId) => {
+  return (dispatch) => {
+    itemsAPI.changeNote(text, itemId)
+      .then(response => {
+        return response.data;
+      })
+    dispatch(onNoteChangeAC(text, itemId))
   }
 }
 

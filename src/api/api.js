@@ -26,6 +26,12 @@ export const itemsAPI = {
     return axios.post(baseURL, {
       params: itemId
     })
+  },
+  changeNote(text, itemId) {
+    return axios.post(baseURL, {
+      text,
+      itemId
+    })
   }
 };
 

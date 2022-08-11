@@ -30,6 +30,29 @@
     text-decoration: line-through;
 }
 
+.textItem input {
+    border: 0;
+    outline: 0;
+    font-size: 18px;
+}
+
+.textItem input:focus {
+    font-size: 18px;
+    outline: none !important;
+}
+
+.isChecked input {
+    border: 0;
+    outline: 0;
+    font-size: 18px;
+}
+
+.isChecked input:focus {
+    font-size: 18px;
+    outline: none !important;
+}
+
+
 .deleteButton {
     user-select: none;
     justify-self: center;

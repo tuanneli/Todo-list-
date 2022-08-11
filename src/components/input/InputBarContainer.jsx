@@ -18,9 +18,6 @@ const mapDispatchToProps = (dispatch) => {
     onTextChange: (text) => {
       dispatch(onTextChangeAC(text))
     },
-    onAddText: () => {
-      dispatch(onAddTextAC())
-    },
     addTextThunkCreator: (Text) => dispatch(addTextThunkCreator(Text)),
   }
 }

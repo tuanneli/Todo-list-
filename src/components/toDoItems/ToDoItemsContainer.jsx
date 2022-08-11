@@ -5,10 +5,16 @@ import {
   addDeleteItemsThunkCreator,
   addIsAddItemsThunkCreator,
   addIsCheckedThunkCreator,
-  addItemsAC, addItemThunkCreator, addTextThunkCreator, deleteItemAC,
-  onIsCheckedAC, setBoardAC
+  addItemsAC,
+  addItemThunkCreator,
+  addTextThunkCreator,
+  changeNoteThunkCreator,
+  deleteItemAC,
+  onIsCheckedAC,
+  onNoteChangeAC,
+  onTextChangeAC,
+  setBoardAC
 } from "../../redux/inputBarReducer";
-import {itemsAPI} from "../../api/api";
 
 class ToDoItemsContainer extends React.Component {
   componentDidMount() {
@@ -46,6 +52,11 @@ const mapDispatchToProps = (dispatch) => {
       addIsAddItemsThunkCreator(board)),
     addDeleteItemsThunkCreator: (itemId) => dispatch(
       addDeleteItemsThunkCreator(itemId)),
+    // onNoteChange: (text, userId) => {
+    //   dispatch(onNoteChangeAC(text, userId))
+    // },
+    changeNoteThunkCreator: (text, itemId) => dispatch(
+      changeNoteThunkCreator(text, itemId)),
   }
 }
 
