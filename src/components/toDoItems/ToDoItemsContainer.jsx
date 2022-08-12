@@ -7,14 +7,10 @@ import {
   addIsCheckedThunkCreator,
   addItemsAC,
   addItemThunkCreator,
-  addTextThunkCreator,
   changeNoteThunkCreator,
-  deleteItemAC,
   onIsCheckedAC,
-  onNoteChangeAC,
-  onTextChangeAC,
-  setBoardAC
 } from "../../redux/inputBarReducer";
+import Preloader from "../../common/Preloader";
 
 class ToDoItemsContainer extends React.Component {
   componentDidMount() {
@@ -24,7 +20,7 @@ class ToDoItemsContainer extends React.Component {
   render() {
     return (
       <>
-        <ToDoItems {...this.props}/>
+        {this.props.isFetching ? <Preloader/> : <ToDoItems {...this.props}/>}
       </>
     )
   }
@@ -33,7 +29,8 @@ class ToDoItemsContainer extends React.Component {
 const mapStateToProps = (state) => {
   return {
     toDoItem: state.inputBar.itemsData,
-    isChecked: state.inputBar.isChecked
+    isChecked: state.inputBar.isChecked,
+    isFetching: state.inputBar.isFetching,
   }
 }
 
@@ -52,9 +49,6 @@ const mapDispatchToProps = (dispatch) => {
       addIsAddItemsThunkCreator(board)),
     addDeleteItemsThunkCreator: (itemId) => dispatch(
       addDeleteItemsThunkCreator(itemId)),
-    // onNoteChange: (text, userId) => {
-    //   dispatch(onNoteChangeAC(text, userId))
-    // },
     changeNoteThunkCreator: (text, itemId) => dispatch(
       changeNoteThunkCreator(text, itemId)),
   }

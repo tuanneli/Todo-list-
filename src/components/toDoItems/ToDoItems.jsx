@@ -1,9 +1,5 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import classes from "./ToDoItems.module.css";
-import {
-  addDeleteItemsThunkCreator,
-  addIsAddItemsThunkCreator
-} from "../../redux/inputBarReducer";
 import Note from "./Note";
 
 const ToDoItems = (props) => {
@@ -57,11 +53,6 @@ const ToDoItems = (props) => {
         onDrop={(e) => dropHandler(e, props.item)}
       >
         <Note {...props}/>
-        {/*<div*/}
-        {/*  draggable={true}*/}
-        {/*  className={props.isChecked ? classes.isChecked : classes.textItem}>*/}
-        {/*  {props.text}*/}
-        {/*</div>*/}
         <div className={classes.checkButton}>
           <button
             onClick={() => {props.addIsCheckedThunkCreator(props.userId)}}>✓
@@ -87,11 +78,10 @@ const ToDoItems = (props) => {
                  item={item}
     />
   })
-
   return (
     <div>
       {props.toDoItem.length ? itemsText :
-        <h1 className={classes.noItemsYet}>{""}</h1>}
+        <h1 className={classes.noItemsYet}>{"No notes yet"}</h1>}
     </div>
   );
 };

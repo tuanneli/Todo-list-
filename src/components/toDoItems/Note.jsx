@@ -35,7 +35,7 @@ const Note = (props) => {
           <input
             onChange={onNoteChange}
             onBlur={toggleEdit}
-            style={{border: "none"}}
+            style={{border: "none", width: "100%"}}
             value={noteText}
             autoFocus
             onFocus={(e) => e.target.select()}

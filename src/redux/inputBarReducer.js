@@ -7,10 +7,12 @@ const IS_CHECKED = 'IS_CHECKED';
 const ADD_ITEMS = 'ADD_ITEMS';
 const DELETE_ITEM = 'DELETE_ITEM';
 const SET_BOARD = 'SET_BOARD';
+const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING';
 
 const initialState = {
   itemsData: [],
   initialText: "",
+  isFetching: false,
 }
 
 const InputBarReducer = (state = initialState, action) => {
@@ -61,6 +63,11 @@ const InputBarReducer = (state = initialState, action) => {
       return {
         ...state,
         itemsData: state.itemsData.filter(item => item.id !== action.itemId),
+      }
+    case TOGGLE_IS_FETCHING:
+      return {
+        ...state,
+        isFetching: action.isFetching,
       }
     default:
       return state;
@@ -118,10 +125,19 @@ export const setBoardAC = (board) => {
   }
 };
 
+export const toggleIsFetching = (isFetching) => {
+  return {
+    type: TOGGLE_IS_FETCHING,
+    isFetching
+  }
+}
+
 export const addItemThunkCreator = () => {
   return (dispatch) => {
+    dispatch(toggleIsFetching(true));
     itemsAPI.getItems().then(response => {
       dispatch(addItemsAC(response.data));
+      dispatch(toggleIsFetching(false));
     });
   }
 }
